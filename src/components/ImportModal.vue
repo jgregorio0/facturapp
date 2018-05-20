@@ -24,25 +24,6 @@
                  placeholder="Selecciona un fichero..."
                  accept="application/json"
                  @input="importFile"></b-form-file>
-
-    <!--<label
-      id="import-file__BV_file_outer_"
-      class="custom-file b-form-file is-invalid w-100 d-block">
-      <input type="file" id="import-file" accept="application/json" aria-describedby="import-file__BV_file_control_"
-             class="custom-file-input w-100 is-invalid">
-        <span id="import-file__BV_file_control_"
-              data-choose="Choose File"
-              data-selected="Selecciona un fichero..."
-              class="custom-file-control">
-      </span>
-    </label>-->
-
-    <!--<div class="custom-file" id="customFile" lang="es">
-      <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-      <label class="custom-file-label" for="exampleInputFile">
-        Select file...
-      </label>
-    </div>-->
   </b-modal>
 </template>
 

@@ -4,7 +4,7 @@
               @click="showModal">
       <Icon name="info"></Icon>
     </b-button>
-    <b-modal ref="expensesModal" hide-footer title="Ayuda">
+    <b-modal ref="expensesModal" title="Ayuda" hide-footer size="lg">
       <div class="d-block text-center">
         <h3>Ayuda gastos</h3>
         <ul>

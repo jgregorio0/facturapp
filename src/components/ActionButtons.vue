@@ -2,18 +2,18 @@
   <li class="nav-item">
 
     <!--BUTTONS GROUP-->
-    <b-button-group vertical>
+    <b-button-group vertical class="w-100">
       <b-btn v-b-modal.import variant="outline-secondary">
-        <Icon name="folder-open"></Icon>
-        <span>Abrir</span>
+        <Icon name="folder-open" class="float-left mr-3 mt-1"></Icon>
+        <span class="float-left">Abrir</span>
       </b-btn>
       <b-btn @click="exportData" variant="outline-secondary">
-        <Icon name="save"></Icon>
-        <span>Guardar</span>
+        <Icon name="save" class="float-left mr-3 mt-1"></Icon>
+        <span class="float-left">Guardar</span>
       </b-btn>
       <b-btn @click="reset" variant="outline-danger">
-        <Icon name="trash"></Icon>
-        <span>Borrar</span>
+        <Icon name="trash" class="float-left mr-3 mt-1"></Icon>
+        <span class="float-left">Borrar</span>
       </b-btn>
     </b-button-group>
 

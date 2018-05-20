@@ -10,7 +10,7 @@
       </b-btn>
 
       <!--BRAND-->
-      <b-navbar-brand :to="{ name: 'home'}">Facturapp</b-navbar-brand>
+      <!--<b-navbar-brand :to="{ name: 'home'}">Facturapp</b-navbar-brand>-->
     </b-navbar>
 
     <!--SIDEBAR-->
@@ -22,20 +22,28 @@
         <b-nav id="sidebar" vertical v-show="showNavSideBar">
 
           <!-- Sidebar Links -->
-          <b-nav-item @click="chNavSideBar"
+          <!--<b-nav-item @click="chNavSideBar"
                       :to="{ name: 'home'}">Inicio
+          </b-nav-item>-->
+          <b-nav-item @click="chNavSideBar"
+                      :to="{ name: 'guests'}">
+            <icon name="bed" class="mr-2"></icon>
+            <span>Inquilinos</span>
           </b-nav-item>
           <b-nav-item @click="chNavSideBar"
-                      :to="{ name: 'guests'}">Inquilinos
+                      :to="{ name: 'invoices'}">
+            <icon name="receipt" class="mr-3"></icon>
+            <span>Facturas</span>
           </b-nav-item>
           <b-nav-item @click="chNavSideBar"
-                      :to="{ name: 'invoices'}">Facturas
+                      :to="{ name: 'expenses'}">
+            <icon name="dollar" class="mr-3"></icon>
+            <span>Gastos</span>
           </b-nav-item>
           <b-nav-item @click="chNavSideBar"
-                      :to="{ name: 'expenses'}">Gastos
-          </b-nav-item>
-          <b-nav-item @click="chNavSideBar"
-                      :to="{ name: 'graphs'}">Gráficos
+                      :to="{ name: 'graphs'}">
+            <icon name="line-chart" class="mr-2"></icon>
+            <span>Gráficos</span>
           </b-nav-item>
 
           <!--ACTION BUTTONS-->
@@ -54,10 +62,16 @@
 
 <script>
   import ActionButtons from './ActionButtons'
+  import 'vue-awesome/icons/bed'
+  import '../utils/icons/receipt'
+  import 'vue-awesome/icons/dollar'
+  import 'vue-awesome/icons/line-chart'
+  import Icon from 'vue-awesome/components/Icon'
 
   export default {
     components: {
-      'app-action-buttons': ActionButtons
+      'app-action-buttons': ActionButtons,
+      Icon
     },
     computed: {
       showNavSideBar () {
@@ -87,8 +101,8 @@
   /*sidebar*/
   #sidebar {
     /*width 250px*/
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 150px;
+    max-width: 150px;
     /*height 100% viewport*/
     height: 100vh;
     /* transparent black */

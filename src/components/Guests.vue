@@ -14,7 +14,7 @@
   export default {
     name: 'guests',
     components: {
-      "app-guest-modal": GuestModal,
+      'app-guest-modal': GuestModal,
       'app-guest-form': GuestForm,
       'app-guest-table': GuestTable
     }

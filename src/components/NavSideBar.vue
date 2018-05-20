@@ -9,7 +9,7 @@
         <!-- Modal Component -->
         <b-modal id="navSideBarModal" hide-header hide-footer no-fade hide-backdrop class="float-left" >
           <b-nav vertical>
-            <b-nav-item :to="{ name: 'home'}">Inicio</b-nav-item>
+            <!--<b-nav-item :to="{ name: 'home'}">Inicio</b-nav-item>-->
             <b-nav-item :to="{ name: 'invoices'}">Facturas</b-nav-item>
             <b-nav-item :to="{ name: 'guests'}">Inquilinos</b-nav-item>
             <b-nav-item :to="{ name: 'expenses'}">Gastos</b-nav-item>

@@ -14,7 +14,7 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      redirect: { 'name': 'home' }
+      redirect: { 'name': 'guests' }
     },
     {
       path: '/home',

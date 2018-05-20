@@ -169,7 +169,7 @@
           : '0'
       },
       isCalcCostError () {
-        return this.sumCalcCostByInvoices != this.sumCalcCostByGuest
+        return this.sumCalcCostByInvoices !== this.sumCalcCostByGuest
       }
     },
     methods: {
@@ -187,7 +187,7 @@
         if (this.collapses[index] === undefined) {
           this.collapses[index] = true
         }
-        return this.collapses[index] == true
+        return this.collapses[index] === true
       },
       accordeonHeaderClass (index) {
         return {'p-1': true, 'active': this.isActiveCollapse(index)}
@@ -201,7 +201,7 @@
       downloadPdfbyGuests (guests) {
         let tables = []
         // Facturas
-        let titleInvoices = "Facturas"
+        let titleInvoices = 'Facturas'
         let headerInvoices = ['Tipo', 'Importe', 'Desde', 'Hasta', 'Días', 'Importe/Día']
         let bodyInvoices = []
 
@@ -217,12 +217,11 @@
           footer: 'TOTAL: ' + calcCostByInvoices(this.invoices).toFixed(2)
         })
 
-
         // Gasto por inquilino
         let headerGuests = ['Inquilino', 'Tipo', 'Importe', 'Desde', 'Hasta', 'Gasto']
 //        let table = [['Inquilino', 'Tipo', 'Importe', 'Desde', 'Hasta', 'Gasto']]
         for (let guest of guests) {
-          let titleGuests = 'Gasto de ' + guest.name + ': ' + this.costsByGuest(guest);
+          let titleGuests = 'Gasto de ' + guest.name + ': ' + this.costsByGuest(guest)
           let bodyGuests = []
           for (let invoice of this.invoices) {
             bodyGuests.push(
@@ -247,7 +246,6 @@
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
-    /*padding: 1px;*/
     position: relative;
     border: 1px solid transparent;
     border-radius: 0.25rem;

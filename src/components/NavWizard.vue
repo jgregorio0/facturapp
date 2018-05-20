@@ -36,15 +36,15 @@
         return this.$store.getters.direction
       },
       isLeftHide () {
-        return this.currents.length && this.currents[0].id > 0;
+        return this.currents.length && this.currents[0].id > 0
       },
       isRightHide () {
         return this.currents.length &&
-          this.currents[this.currents.length - 1].id < this.alls[this.alls.length - 1].id;
+          this.currents[this.currents.length - 1].id < this.alls[this.alls.length - 1].id
       }
     },
     watch: {
-      '$route' (to, from){
+      '$route' (to, from) {
 //        console.log('watch $route', to, from)
         this.navigation(from.name, to.name)
       }
@@ -76,11 +76,11 @@
           updateNavigation(curr, this.currents, this.alls, this.range)
         }
       },
-      isFirst(index){
-        return index == 0
+      isFirst (index) {
+        return index === 0
       },
-      isLast(index){
-        return index == (this.range - 1)
+      isLast (index) {
+        return index === (this.range - 1)
       }
     },
     created () {

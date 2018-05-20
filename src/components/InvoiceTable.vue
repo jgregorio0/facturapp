@@ -36,7 +36,7 @@
             <b-list-group-item>
               <b-container>
                 <b-row>
-                  <b-col><span class="d-block font-weight-bold p-1">Media importe total / días</span></b-col>
+                  <b-col><span class="d-block font-weight-bold p-1">Media diaria</span></b-col>
                   <b-col><span class="float-right money p-1">{{ averagePerDay }}</span></b-col>
                 </b-row>
               </b-container>
@@ -50,7 +50,7 @@
 
 <script>
   import {diffDaysStr} from '../utils/dateUtil'
-  import {calcCostByInvoices, calcPricePerDay, calcAveragePricePerDay} from '../utils/expensesUtil'
+  import {calcCostByInvoices, calcAveragePricePerDay} from '../utils/expensesUtil'
 
   export default {
     data () {
@@ -104,10 +104,10 @@
           this.invoices.length === 0)
       },
       totalCost () {
-        return this.validateInvoices ? calcCostByInvoices(this.invoices).toFixed(2) : ""
+        return this.validateInvoices ? calcCostByInvoices(this.invoices).toFixed(2) : ''
       },
       averagePerDay () {
-        return this.validateInvoices ? calcAveragePricePerDay(this.invoices).toFixed(2) : ""
+        return this.validateInvoices ? calcAveragePricePerDay(this.invoices).toFixed(2) : ''
       }
     },
     methods: {
@@ -115,11 +115,10 @@
         this.$store.commit('rmInvoice', {index: index})
       },
       pricePerDay (invoice) {
-        return this.validateInvoices ? invoice.pricePerDay.toFixed(2) : ""
+        return this.validateInvoices ? invoice.pricePerDay.toFixed(2) : ''
       },
       diffDays (invoice) {
-        //TODO: Why diff days return decimals?
-        return this.validateInvoices ? diffDaysStr(invoice.from, invoice.to).toFixed(0) : ""
+        return this.validateInvoices ? diffDaysStr(invoice.from, invoice.to).toFixed(0) : ''
       }
     }
   }

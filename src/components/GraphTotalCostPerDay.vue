@@ -36,7 +36,7 @@
           },
           tooltips: {
             mode: 'index',
-            intersect: false,
+            intersect: false
           },
           hover: {
             mode: 'nearest',
@@ -71,8 +71,8 @@
       validateInvoices () {
 //        console.log('validateInvoices')
         return !(this.invoices === undefined ||
-        this.invoices === null ||
-        this.invoices.length === 0)
+          this.invoices === null ||
+          this.invoices.length === 0)
       },
 
       /**
@@ -92,14 +92,12 @@
        * Array of each date from and to of all invoices converted to milliseconds
        * @return {Array.<Number>}
        */
-      timeArrayDaysInvoicesSorted()
-      {
+      timeArrayDaysInvoicesSorted () {
 //        console.log('timeArrayDaysInvoicesSorted')
         return this.validateInvoices
           ? daysSorted(this.invoices)
           : []
-      }
-      ,
+      },
 
       /**
        * Data for graph
@@ -119,9 +117,7 @@
              * }
        * @return {{}}
        */
-      totalCostPerDayData()
-      {
-
+      totalCostPerDayData () {
         // labels
         let labels = this.timeArrayDaysInvoicesSorted.map((k) => {
           return formatTimeMillis(Number(k))
