@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from "moment"
 
 export function formatTimeMillis (t) {
   return formatMoment(moment(t))
@@ -13,7 +13,7 @@ export function inputFmtDate (m) {
 }
 
 export function initDateFrom () {
-  let m = moment().month(mgoment().month() - 1)
+  let m = moment().month(moment().month() - 1)
   return inputFmtDate(m)
 }
 
@@ -67,6 +67,7 @@ export function minFrom (invoices) {
   let froms = invoices.map((invoice) => {
     return parseToMoment(invoice.from)
   })
+  console.log('froms: ' + froms)
   return moment.min(froms)
 }
 
@@ -76,8 +77,7 @@ export function minFrom (invoices) {
  * @return {String}
  */
 export function minFromStr (invoices) {
-  let minMoment = minFrom(invoices)
-  return formatMoment(minMoment)
+  return formatMoment(minFrom(invoices))
 }
 
 /**
@@ -89,6 +89,7 @@ export function maxTo (invoices) {
   let tos = invoices.map((invoice) => {
     return parseToMoment(invoice.to)
   })
+  console.log('tos: ' + tos)
   return moment.max(tos)
 }
 
@@ -98,8 +99,7 @@ export function maxTo (invoices) {
  * @return {String}
  */
 export function maxToStr (invoices) {
-  let maxMoment = maxTo(invoices)
-  return formatMoment(maxMoment)
+  return formatMoment(maxTo(invoices))
 }
 
 /**
