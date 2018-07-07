@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '../components/Home.vue'
 import Invoices from '../components/Invoices.vue'
 import Guests from '../components/Guests.vue'
 import Expenses from '../components/Expenses.vue'
@@ -15,11 +14,6 @@ export default new Router({
       path: '/',
       name: 'index',
       redirect: { 'name': 'guests' }
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home
     },
     {
       path: '/guests',

@@ -63,7 +63,7 @@
         <b-collapse :id="'collapse-' + index" role="tabpanel"
                     :accordion="'expenses-accordeon-' + index"
                     v-model="collapses[index]">
-          <b-card-body>
+          <b-card-body class="p-0">
             <b-table striped hover small
                      :items="invoices" :fields="fields"
                      sort-by="to" :sort-desc="true">

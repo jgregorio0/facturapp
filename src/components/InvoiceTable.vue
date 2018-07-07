@@ -2,7 +2,7 @@
   <div class="table">
 
     <!--TABLE-->
-    <b-table striped hover small
+    <b-table striped hover small responsive
              :items="invoices" :fields="fields"
              sort-by="to" :sort-desc="true">
       <template slot="days" slot-scope="data">

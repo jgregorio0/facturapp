@@ -71,7 +71,6 @@
 </template>
 
 <script>
-  import TableGuest from './GuestTable.vue'
   import {initDateFrom, initDateTo} from '../utils/dateUtil'
   import 'vue-awesome/icons/chevron-down'
   import Icon from 'vue-awesome/components/Icon'
