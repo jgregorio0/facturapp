@@ -25,6 +25,7 @@
    git config --global user.name "jgregorio"
    git config --global user.email gregoriojesus0@gmail.com
 
+<<<<<<< HEAD
    echo "*********INSTALL LIB FOR PUPPETTER / SPA PRERENDER*********"
    sudo apt-get install gconf-service -y
    sudo apt-get install libasound2 -y
@@ -68,6 +69,11 @@
    #echo "*********CONFIG NODE_MODULES*********"
    #mkdir /home/vagrant/node_modules
    #ln -s /home/vagrant/node_modules /home/vagrant/project/node_modules
+=======
+   #echo "*********CONFIG NODE_MODULES*********"
+   #sudo -H -u vagrant bash -c 'mkdir /home/vagrant/node_modules'
+   #sudo -H -u vagrant bash -c 'ln -s /home/vagrant/node_modules /home/vagrant/project/node_modules'
+>>>>>>> refs/remotes/origin/master
 
    #echo "*********INSTALL NVM && NODEJS && NPM*********"
    #TODO change to user vagrant??
@@ -75,8 +81,13 @@
   #git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
   #echo "source ~/.nvm/nvm.sh" >> ~/.profile
   #source ~/.profile
+<<<<<<< HEAD
   #nvm install $NODE_VERSION
   #nvm alias default $NODE_VERSION
+=======
+  #nvm install 8.11.2
+  #nvm alias default 8.11.3
+>>>>>>> refs/remotes/origin/master
   #node -v
   #npm -v
 

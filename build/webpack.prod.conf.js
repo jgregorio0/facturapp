@@ -117,6 +117,7 @@ const webpackConfig = merge(baseWebpackConfig, {
           urlPattern: /^https:\/\/[\w]*.?thawing-chamber-86107.herokuapp.com\/static\/img\//,
           handler: 'cacheFirst'
         }]
+<<<<<<< HEAD
     }),
     // prerender SPA
     new PrerenderSpaPlugin({
@@ -130,6 +131,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         },
         renderAfterDocumentEvent: 'app.rendered'
       })
+=======
+>>>>>>> refs/remotes/origin/master
     })
   ]
 })
