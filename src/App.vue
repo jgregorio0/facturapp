@@ -6,6 +6,7 @@
 
     <section>
       <app-nav-wizard v-show="this.$route.name != 'home'"></app-nav-wizard>
+      <TimeLine></TimeLine>
       <transition
         appear
         appear-active-class="animated zoomIn"
@@ -23,11 +24,13 @@
 <script>
   import NavBar from './components/NavBar.vue'
   import NavWizard from './components/NavWizard.vue'
+  import TimeLine from './components/TimeLine.vue'
 
   export default {
     components: {
       'app-nav-bar': NavBar,
-      'app-nav-wizard': NavWizard
+      'app-nav-wizard': NavWizard,
+      TimeLine
     },
     computed: {
       direction () {
@@ -38,77 +41,77 @@
 </script>
 
 <style scoped>
-  .left-enter {
+.left-enter {
+}
+
+.left-enter-active {
+  animation: fadeInLeft 0.4s ease-out forwards;
+}
+
+.left-leave {
+}
+
+.left-leave-active {
+  animation: fadeOutRight 0.2s ease-out forwards;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
   }
 
-  .left-enter-active {
-    animation: fadeInLeft 0.4s ease-out forwards;
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
   }
 
-  .left-leave {
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.right-enter {
+}
+
+.right-enter-active {
+  animation: fadeInRight 0.4s ease-out forwards;
+}
+
+.right-leave {
+}
+
+.right-leave-active {
+  animation: fadeOutLeft 0.2s ease-out forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
   }
 
-  .left-leave-active {
-    animation: fadeOutRight 0.2s ease-out forwards;
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
   }
 
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translate3d(-100%, 0, 0);
-    }
-
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
+  to {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
   }
-
-  @keyframes fadeOutRight {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-      transform: translate3d(100%, 0, 0);
-    }
-  }
-
-  .right-enter {
-  }
-
-  .right-enter-active {
-    animation: fadeInRight 0.4s ease-out forwards;
-  }
-
-  .right-leave {
-  }
-
-  .right-leave-active {
-    animation: fadeOutLeft 0.2s ease-out forwards;
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translate3d(100%, 0, 0);
-    }
-
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  @keyframes fadeOutLeft {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
+}
 </style>

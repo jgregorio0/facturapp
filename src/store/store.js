@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
-import {calcPricePerDay} from '../utils/expensesUtil'
+import { calcPricePerDay } from '../utils/expensesUtil'
+import { parseToMoment, isRangeTimeIntersectingAtRangeTime } from '../utils/dateUtil'
 
 Vue.use(Vuex)
 
@@ -11,13 +12,14 @@ export const store = new Vuex.Store({
     createPersistedState({
       storage: {
         getItem: key => Cookies.get(key),
-        setItem: (key, value) => Cookies.set(key, value, {path: '/'}),
+        setItem: (key, value) => Cookies.set(key, value, { path: '/' }),
         removeItem: key => Cookies.remove(key)
       }
     })
   ],
   state: {
     invoices: [],
+    allInvoices: [],
     guests: [],
     direction: 'right',
     showNavSideBar: false
@@ -25,6 +27,9 @@ export const store = new Vuex.Store({
   getters: {
     invoices: state => {
       return state.invoices
+    },
+    allInvoices: state => {
+      return state.allInvoices
     },
     guests: state => {
       return state.guests
@@ -40,9 +45,13 @@ export const store = new Vuex.Store({
     addInvoice: (state, payload) => {
       payload.index = state.invoices.length
       payload.pricePerDay = calcPricePerDay(payload)
+      state.allInvoices.push(payload)
       state.invoices.push(payload)
     },
     rmInvoice: (state, payload) => {
+      state.allInvoices.splice(payload.index, 1)
+      updateIndexes(state.allInvoices, payload.index)
+
       state.invoices.splice(payload.index, 1)
       updateIndexes(state.invoices, payload.index)
     },
@@ -56,6 +65,9 @@ export const store = new Vuex.Store({
     },
     setGuests: (state, payload) => {
       state.guests = payload
+    },
+    setAllInvoices: (state, payload) => {
+      state.allInvoices = payload
     },
     setInvoices: (state, payload) => {
       state.invoices = payload
@@ -74,6 +86,24 @@ export const store = new Vuex.Store({
     },
     setShowNavSideBar: (state, payload) => {
       state.showNavSideBar = payload.showNavSideBar
+    }
+  },
+  actions: {
+    filterInvoicesByDates (context, payload) {
+      let invoices = []
+      for (let invoice of context.getters.allInvoices) {
+        if (
+          isRangeTimeIntersectingAtRangeTime(
+            parseToMoment(invoice.from).valueOf(),
+            parseToMoment(invoice.to).valueOf(),
+            payload.from,
+            payload.to
+          )
+        ) {
+          invoices.push(invoice)
+        }
+      }
+      context.commit('setInvoices', invoices)
     }
   }
 })

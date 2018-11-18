@@ -129,8 +129,8 @@
 </script>
 
 <style scoped>
-  .form-submit {
-    margin-top: 10px;
-    text-align: center;
-  }
+.form-submit {
+  margin-top: 10px;
+  text-align: center;
+}
 </style>

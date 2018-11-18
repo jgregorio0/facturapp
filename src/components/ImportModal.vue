@@ -81,6 +81,7 @@
       importData (data) {
         let json = JSON.parse(data)
         this.$store.commit('setGuests', json.guests)
+        this.$store.commit('setAllInvoices', json.invoices)
         this.$store.commit('setInvoices', json.invoices)
         console.log('Las facturas y los inquilinos se han importado correctamente')
         this.successes = ['Las facturas y los inquilinos se han importado correctamente']

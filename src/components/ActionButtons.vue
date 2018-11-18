@@ -33,8 +33,8 @@
 
   export default {
     computed: {
-      invoices () {
-        return this.$store.getters.invoices
+      allInvoices () {
+        return this.$store.getters.allInvoices
       },
       guests () {
         return this.$store.getters.guests
@@ -43,7 +43,7 @@
     methods: {
       exportData () {
         download('data.json', {
-          invoices: this.invoices,
+          invoices: this.allInvoices,
           guests: this.guests
         })
       },
