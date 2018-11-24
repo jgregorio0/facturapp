@@ -139,7 +139,9 @@
       }
     },
     mounted () {
+      // init invoices filter timeline
       this.filterDateTo = this.daysSorted.length - 1
+      this.$store.commit('setInvoices', this.$store.getters.allInvoices)
     }
   }
 </script>
@@ -228,7 +230,7 @@
   background-color: #2c3e50;
 }
 .thumb.among {
-  background-color: #2c3e5080;
+  background-color: #2c3e50;
 }
 
 /* LINEAS */
@@ -241,9 +243,9 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: #aeb6bf;
-  width: 4vw;
+  width: 100%;
   height: 5px;
-  max-width: 50px;
+  /* max-width: 50px; */
 }
 .thumb::before {
   left: calc(-4vw + 12.5px);
@@ -298,73 +300,4 @@
   font-size: 12px;
   text-indent: -10px;
 }
-
-/* .thumb::before, .thumb::after {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #2C3E50;
-  width: 4vw;
-  height: 5px;
-  max-width: 50px;
-}
-
-.thumb::before {
-  left: calc(-4vw + 12.5px);
-}
-.thumb::after {
-  right: calc(-4vw + 12.5px);
-}
-.thumb.active {
-  background-color: #2C3E50;
-}
-.thumb.active::before {
-  background-color: #2C3E50;
-}
-.thumb.active::after {
-  background-color: #2C3E50;
-}
-.thumb.active span {
-  font-weight: 700;
-}
-.thumb.active span::before {
-  font-size: 13px;
-}
-.thumb.active span::after {
-  font-size: 15px;
-}
-.thumb.active ~ .thumb, .thumb.active ~ .thumb::before, .thumb.active ~ .thumb::after {
-  background-color: #AEB6BF;
-}
-.thumb span {
-  width: 1px;
-  height: 1px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  visibility: hidden;
-}
-.thumb span::before, .thumb span::after {
-  visibility: visible;
-  position: absolute;
-  left: 50%;
-}
-.thumb span::after {
-  content: attr(data-year);
-  top: 25px;
-  transform: translateX(-50%);
-  font-size: 14px;
-}
-.thumb span::before {
-  content: attr(data-info);
-  top: -65px;
-  width: 70px;
-  transform: translateX(-5px) rotateZ(-45deg);
-  font-size: 12px;
-  text-indent: -10px;
-} */
 </style>
