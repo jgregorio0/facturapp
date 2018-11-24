@@ -9,21 +9,12 @@
         <h3>Ayuda inquilinos</h3>
         <b-tabs>
           <b-tab title="Añadir inquilino" active>
-            <guest-modal-carousel></guest-modal-carousel>
+            <b-img thumbnail fluid src="/static/img/gif/guests_new.gif"></b-img>
           </b-tab>
           <b-tab title="Eliminar inquilino" >
-            <br>I'm the second tab content
+            <b-img thumbnail fluid src="/static/img/gif/guests_rm.gif"></b-img>
           </b-tab>
-          <b-tab title="disabled" disabled>
-            <br>Disabled tab!
-          </b-tab>
-        </b-tabs><!--
-        <ul>
-          <li>Añadir inquilino</li> &lt;!&ndash;TODO modal guest Añadir inquilino&ndash;&gt;
-          <li>Campos del inquilino</li> &lt;!&ndash;TODO modal guest Campos del inquilino&ndash;&gt;
-          <li>Eliminar inquilino</li> &lt;!&ndash;TODO modal guest Eliminar inquilino&ndash;&gt;
-          <li>Siguiente paso: facturas</li> &lt;!&ndash;TODO modal guest Siguiente paso: facturas&ndash;&gt;
-        </ul>-->
+        </b-tabs>
       </div>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Cerrar</b-btn>
     </b-modal>

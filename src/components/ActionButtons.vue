@@ -50,6 +50,7 @@
       reset () {
         this.$store.commit('setGuests', [])
         this.$store.commit('setInvoices', [])
+        this.$store.commit('setAllInvoices', [])
       }
     },
     components: {
