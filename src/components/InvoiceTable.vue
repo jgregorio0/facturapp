@@ -13,7 +13,7 @@
       </template>
       <template slot="actions" slot-scope="data">
         <b-button variant="danger" @click="rmInvoice(data.item.index)">
-          Eliminar ({{data.item.index}})
+          Eliminar
         </b-button>
       </template>
     </b-table>

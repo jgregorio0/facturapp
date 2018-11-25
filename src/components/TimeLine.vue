@@ -1,49 +1,71 @@
 <template>
-<div class="timeline mt-5"
- @mouseup="filterInvoicesByDates() && disableChange()"
- v-if="allInvoices.length && daysSorted.length > 2">
-  <!-- FORM INPUT RANGE -->
-  <form style="display:none">
-      <div class="form-group">
-        <!-- <p>daysSorted: {{daysSorted}}</p>
-        <p>range: [{{min}}, {{max}}]</p>
-        <p>step: {{step}}</p>
-        <p>from: {{filterDateFrom}}</p>
-        <p>to: {{filterDateTo}}</p> -->
-        <div class="range-slider">
-          <input type="range" class="form-control-range"
-            :min="min" :max="max" step="1"
-            v-model.number="filterDateFrom">
-          <input type="range" class="form-control-range"
-            :min="min" :max="max" step="1"
-            v-model.number="filterDateTo">
+<b-container class="timeline-container">
+  <b-row>
+     <!-- TIMELINE INFO MODAL -->
+      <TimeLineModal/>
+       <!-- RELOAD BUTTON -->
+      <b-button class="m-1" sm variant="outline-primary"
+                  @click="reloadTimeLine">
+          <Icon name="refresh"></Icon>
+      </b-button>
+  </b-row>
+  <b-row class="mt-5">
+    <!-- TIMELINE COMPONENT -->
+    <div class="timeline"
+    @mouseup="filterInvoicesByDates() && disableChange()"
+    v-if="allInvoices.length && daysSorted.length > 2">
+      <!-- FORM INPUT RANGE -->
+      <form style="display:none">
+          <div class="form-group">
+            <!-- <p>daysSorted: {{daysSorted}}</p>
+            <p>range: [{{min}}, {{max}}]</p>
+            <p>step: {{step}}</p>
+            <p>from: {{filterDateFrom}}</p>
+            <p>to: {{filterDateTo}}</p> -->
+            <div class="range-slider">
+              <input type="range" class="form-control-range"
+                :min="min" :max="max" step="1"
+                v-model.number="filterDateFrom">
+              <input type="range" class="form-control-range"
+                :min="min" :max="max" step="1"
+                v-model.number="filterDateTo">
+            </div>
+          </div>
+      </form>
+      <!-- TIMELINE -->
+      <div class="thumb-flex-parent">
+        <div class="thumb-flex-container">
+            <div v-for="(day, index) in daysSorted" :key="day"
+            @mousedown="enableChange(index)"
+            @mouseover="changeRange(index)"
+            :class="{active: isActive(index),
+            among: isAmong(index),
+            first: isFirst(index),
+            last: isLast(index),
+            thumb: true}">
+              <span :data-info="day | fmtDate"></span>
+            </div>
         </div>
       </div>
-  </form>
-  <!-- TIMELINE -->
-  <div class="thumb-flex-parent">
-    <div class="thumb-flex-container">
-        <div v-for="(day, index) in daysSorted" :key="day"
-        @mousedown="enableChange(index)"
-        @mouseover="changeRange(index)"
-        :class="{active: isActive(index),
-        among: isAmong(index),
-        first: isFirst(index),
-        last: isLast(index),
-        thumb: true}">
-          <span :data-info="day | fmtDate"></span>
-        </div>
     </div>
-  </div>
-</div>
+  </b-row>
+</b-container>
+
 </template>
 
 <script>
   import { daysSorted } from '../utils/expensesUtil'
   import { formatTimeMillis } from '../utils/dateUtil'
+  import TimeLineModal from './TimeLineModal.vue'
+  import Icon from 'vue-awesome/components/Icon'
+  import 'vue-awesome/icons/refresh'
 
   export default {
-    name: 'TableInvoice',
+    name: 'TimeLine',
+    components: {
+      TimeLineModal,
+      Icon
+    },
     data () {
       return {
         changeValueOf: false
@@ -145,6 +167,11 @@
           this.$store.dispatch('filterInvoicesByDates')
         }
         return true
+      },
+      reloadTimeLine () {
+        this.$store.commit('setFilterDateFrom', this.daysSorted[0])
+        this.$store.commit('setFilterDateTo', this.daysSorted[this.daysSorted.length - 1])
+        this.$store.commit('setInvoices', this.$store.getters.allInvoices)
       }
     },
     filters: {
@@ -154,9 +181,7 @@
     },
     mounted () {
       // init invoices filter timeline
-      this.$store.commit('setFilterDateFrom', this.daysSorted[0])
-      this.$store.commit('setFilterDateTo', this.daysSorted[this.daysSorted.length - 1])
-      this.$store.commit('setInvoices', this.$store.getters.allInvoices)
+      this.reloadTimeLine()
     }
   }
 </script>
