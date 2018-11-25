@@ -3,7 +3,10 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
 import { calcPricePerDay } from '../utils/expensesUtil'
-import { parseToMoment, isRangeTimeIntersectingAtRangeTime } from '../utils/dateUtil'
+import {
+  parseToMoment,
+  isRangeTimeIntersectingAtRangeTime
+} from '../utils/dateUtil'
 
 Vue.use(Vuex)
 
@@ -22,7 +25,9 @@ export const store = new Vuex.Store({
     allInvoices: [],
     guests: [],
     direction: 'right',
-    showNavSideBar: false
+    showNavSideBar: false,
+    filterDateFrom: 0,
+    filterDateTo: Number.MAX_SAFE_INTEGER
   },
   getters: {
     invoices: state => {
@@ -39,6 +44,12 @@ export const store = new Vuex.Store({
     },
     showNavSideBar: state => {
       return state.showNavSideBar
+    },
+    filterDateFrom: state => {
+      return state.filterDateFrom
+    },
+    filterDateTo: state => {
+      return state.filterDateTo
     }
   },
   mutations: {
@@ -49,11 +60,9 @@ export const store = new Vuex.Store({
       state.invoices.push(payload)
     },
     rmInvoice: (state, payload) => {
+      console.log('rmInvoice index :', payload.index)
       state.allInvoices.splice(payload.index, 1)
       updateIndexes(state.allInvoices, payload.index)
-
-      state.invoices.splice(payload.index, 1)
-      updateIndexes(state.invoices, payload.index)
     },
     addGuest: (state, payload) => {
       payload.index = state.guests.length
@@ -86,18 +95,38 @@ export const store = new Vuex.Store({
     },
     setShowNavSideBar: (state, payload) => {
       state.showNavSideBar = payload.showNavSideBar
+    },
+    setFilterDateFrom: (state, filterDateFrom) => {
+      state.filterDateFrom = filterDateFrom
+    },
+    setFilterDateTo: (state, filterDateTo) => {
+      state.filterDateTo = filterDateTo
     }
   },
   actions: {
-    filterInvoicesByDates (context, payload) {
+    rmInvoice (context, payload) {
+      console.log(
+        'remove index :',
+        payload.index,
+        context.getters.allInvoices[payload.index]
+      )
+
+      context.commit('rmInvoice', {index: payload.index})
+      context.dispatch('filterInvoicesByDates')
+    },
+    filterInvoicesByDates (context) {
+      console.log(
+        'context.getters.allInvoices :',
+        context.getters.allInvoices.length
+      )
       let invoices = []
       for (let invoice of context.getters.allInvoices) {
         if (
           isRangeTimeIntersectingAtRangeTime(
             parseToMoment(invoice.from).valueOf(),
             parseToMoment(invoice.to).valueOf(),
-            payload.from,
-            payload.to
+            context.getters.filterDateFrom,
+            context.getters.filterDateTo
           )
         ) {
           invoices.push(invoice)

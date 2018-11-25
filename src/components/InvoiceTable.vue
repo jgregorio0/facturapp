@@ -13,7 +13,7 @@
       </template>
       <template slot="actions" slot-scope="data">
         <b-button variant="danger" @click="rmInvoice(data.item.index)">
-          Eliminar
+          Eliminar ({{data.item.index}})
         </b-button>
       </template>
     </b-table>
@@ -112,7 +112,7 @@
     },
     methods: {
       rmInvoice (index) {
-        this.$store.commit('rmInvoice', {index: index})
+        this.$store.dispatch('rmInvoice', {index: index})
       },
       pricePerDay (invoice) {
         return this.validateInvoices ? invoice.pricePerDay.toFixed(2) : ''

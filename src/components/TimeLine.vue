@@ -46,12 +46,16 @@
     name: 'TableInvoice',
     data () {
       return {
-        filterDateFrom: 0,
-        filterDateTo: 0,
         changeValueOf: false
       }
     },
     computed: {
+      filterDateFrom () {
+        return this.$store.getters.filterDateFrom
+      },
+      filterDateTo () {
+        return this.$store.getters.filterDateTo
+      },
       allInvoices () {
         return this.$store.getters.allInvoices
       },
@@ -78,25 +82,49 @@
     },
     methods: {
       isActive (index) {
-        return this.filterDateFrom === index || this.filterDateTo === index
+        return this.filterDateFrom === this.daysSorted[index] ||
+          this.filterDateTo === this.daysSorted[index]
       },
       isAmong (index) {
-        return this.filterDateFrom < index && this.filterDateTo > index
+        return this.filterDateFrom < this.daysSorted[index] &&
+          this.filterDateTo > this.daysSorted[index]
       },
       isFirst (index) {
-        return this.filterDateFrom === index
+        return this.filterDateFrom === this.daysSorted[index]
       },
       isLast (index) {
-        return this.filterDateTo === index
+        return this.filterDateTo === this.daysSorted[index]
       },
       changeRange (index) {
         if (!this.changeValueOf) {
           return false
         } else if (this.changeValueOf === 'from') {
-          this.filterDateFrom = index
+          // modifica el filtro from
+          let filterDateFromValue = this.daysSorted[index]
+          if (filterDateFromValue >= this.filterDateTo) {
+            // si el valor del filtro from >= to, asignar to - 1
+            let filterDateToIdx = this.daysSorted.findIndex(day => {
+                return day === this.filterDateTo
+            })
+            filterDateFromValue = filterDateToIdx > 0
+              ? this.daysSorted[filterDateToIdx - 1]
+              : this.daysSorted[0]
+          }
+          this.$store.commit('setFilterDateFrom', filterDateFromValue)
           return true
         } else if (this.changeValueOf === 'to') {
-          this.filterDateTo = index
+          // modifica el filtro to
+          let filterDateToValue = this.daysSorted[index]
+          if (filterDateToValue <= this.filterDateFrom) {
+            // si el valor del filtro to <= from, asignar from + 1
+            let filterDateFromIdx = this.daysSorted.findIndex(day => {
+                return day === this.filterDateFrom
+            })
+            filterDateToValue = filterDateFromIdx < this.daysSorted.length - 1
+              ? this.daysSorted[filterDateFromIdx + 1]
+              : this.daysSorted[this.daysSorted.length - 1]
+          }
+          this.$store.commit('setFilterDateTo', filterDateToValue)
           return true
         } else {
           return false
@@ -114,23 +142,9 @@
       },
       filterInvoicesByDates () {
         if (this.changeValueOf) {
-          this.$store.dispatch('filterInvoicesByDates',
-            {from: this.daysSorted[this.filterDateFrom],
-            to: this.daysSorted[this.filterDateTo]})
+          this.$store.dispatch('filterInvoicesByDates')
         }
         return true
-      }
-    },
-    watch: {
-      filterDateFrom (newValue, oldValue) {
-        this.filterDateFrom = newValue >= this.filterDateTo
-          ? this.filterDateTo - this.step
-          : newValue
-      },
-      filterDateTo (newValue, oldValue) {
-        this.filterDateTo = newValue <= this.filterDateFrom
-          ? this.filterDateFrom + this.step
-          : newValue
       }
     },
     filters: {
@@ -140,7 +154,8 @@
     },
     mounted () {
       // init invoices filter timeline
-      this.filterDateTo = this.daysSorted.length - 1
+      this.$store.commit('setFilterDateFrom', this.daysSorted[0])
+      this.$store.commit('setFilterDateTo', this.daysSorted[this.daysSorted.length - 1])
       this.$store.commit('setInvoices', this.$store.getters.allInvoices)
     }
   }
