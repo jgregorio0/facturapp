@@ -1,5 +1,5 @@
 <template>
-<b-container class="timeline-container">
+<b-container class="timeline-container" v-if="allInvoices.length && daysSorted.length > 2">
   <b-row>
      <!-- TIMELINE INFO MODAL -->
       <TimeLineModal/>
@@ -12,8 +12,7 @@
   <b-row class="mt-5">
     <!-- TIMELINE COMPONENT -->
     <div class="timeline"
-    @mouseup="filterInvoicesByDates() && disableChange()"
-    v-if="allInvoices.length && daysSorted.length > 2">
+    @mouseup="filterInvoicesByDates() && disableChange()">
       <!-- FORM INPUT RANGE -->
       <form style="display:none">
           <div class="form-group">
