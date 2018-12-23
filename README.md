@@ -68,3 +68,8 @@ npm run unit
 # run all tests
 npm test
 ```
+## GIFs
+```
+byzanz-record --duration=25 --x=45 --y=140 --width=650 --height=740 salida.gif
+byzanz-record --duration=25 --x=5 --y=170 --width=620 --height=740 salida.gif
+```
