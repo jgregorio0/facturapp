@@ -25,12 +25,14 @@ export function calcAveragePricePerDay (invoices) {
   let maxMoment = null
   for (let invoice of invoices) {
     totalPrice += Number(invoice.price)
-    minMoment = minMoment == null
-      ? parseToMoment(invoice.from)
-      : moment.min([minMoment, parseToMoment(invoice.from)])
-    maxMoment = maxMoment == null
-      ? parseToMoment(invoice.to)
-      : moment.max([maxMoment, parseToMoment(invoice.to)])
+    minMoment =
+      minMoment == null
+        ? parseToMoment(invoice.from)
+        : moment.min([minMoment, parseToMoment(invoice.from)])
+    maxMoment =
+      maxMoment == null
+        ? parseToMoment(invoice.to)
+        : moment.max([maxMoment, parseToMoment(invoice.to)])
   }
 
   return totalPrice / diffDaysMoment(minMoment, maxMoment)
@@ -152,7 +154,7 @@ export function calcCostByGuestAndInvoice (guest, invoice, guests) {
   let cost = 0
   if (isGuestBetweenInvoiceRange(guest, invoice)) {
     // days to take into account
-    let timemillis = daysSortedBetweenInvoiceRange(invoice, guests)
+    let timemillis = expensesPeriods(invoice, guests)
 
     // for each time range calculate cost = pricePerDay * days / num guests
     for (let i = 0; i + 1 < timemillis.length; i++) {
@@ -160,15 +162,23 @@ export function calcCostByGuestAndInvoice (guest, invoice, guests) {
       let timeTo = timemillis[i + 1]
 
       // If guest stay into this period
-      if (isRangeTimeIntersectingAtRangeTime(
-        parseToMoment(guest.from).valueOf(),
-        parseToMoment(guest.to).valueOf(),
-        timeFrom,
-        timeTo
-      )) {
+      if (
+        isRangeTimeIntersectingAtRangeTime(
+          parseToMoment(guest.from).valueOf(),
+          parseToMoment(guest.to).valueOf(),
+          timeFrom,
+          timeTo
+        )
+      ) {
         let guestDaysIntoInvoiceTimeRange = diffDaysTime(timeFrom, timeTo)
-        let numGuestsIntoInvoiceTimeRange = calcNumGuestsBetweenRangeTime(guests, timeFrom, timeTo)
-        cost += (invoice.pricePerDay * guestDaysIntoInvoiceTimeRange) / numGuestsIntoInvoiceTimeRange
+        let numGuestsIntoInvoiceTimeRange = calcNumGuestsBetweenRangeTime(
+          guests,
+          timeFrom,
+          timeTo
+        )
+        cost +=
+          (invoice.pricePerDay * guestDaysIntoInvoiceTimeRange) /
+          numGuestsIntoInvoiceTimeRange
       }
     }
   }
@@ -189,7 +199,12 @@ export function isGuestBetweenInvoiceRange (guest, invoice) {
   if (invoice === undefined || invoice === null) {
     throw Error('invoice must not be null')
   }
-  return isRangeDateStrIntersectingAtRangeDateStr(guest.from, guest.to, invoice.from, invoice.to)
+  return isRangeDateStrIntersectingAtRangeDateStr(
+    guest.from,
+    guest.to,
+    invoice.from,
+    invoice.to
+  )
 }
 
 /**
@@ -204,7 +219,12 @@ export function isGuestBetweenRangeDateStr (guest, fromStr, toStr) {
     throw Error('guest must not be null')
   }
 
-  return isRangeDateStrIntersectingAtRangeDateStr(guest.from, guest.to, fromStr, toStr)
+  return isRangeDateStrIntersectingAtRangeDateStr(
+    guest.from,
+    guest.to,
+    fromStr,
+    toStr
+  )
 }
 
 /**
@@ -276,8 +296,14 @@ export function calcNumGuestsBetweenRangeTime (guests, from, to) {
 
   let total = 0
   for (let guest of guests) {
-    if (isRangeTimeIntersectingAtRangeTime(
-      parseToMoment(guest.from).valueOf(), parseToMoment(guest.to).valueOf(), from, to)) {
+    if (
+      isRangeTimeIntersectingAtRangeTime(
+        parseToMoment(guest.from).valueOf(),
+        parseToMoment(guest.to).valueOf(),
+        from,
+        to
+      )
+    ) {
       total++
     }
   }
@@ -309,11 +335,61 @@ export function daysSorted (invoices) {
 }
 
 /**
- * Return timemillis array sorted between invoice dates range
+ * Return sorted days array meaning expenses periods from invoices array.
  * @param invoices
  * @return {Array.<Number>}
  */
-export function daysSortedBetweenInvoiceRange (invoice, guests) {
+export function expensesPeriodsForInvoices (invoices) {
+  if (invoices === undefined || invoices === null || invoices.length === 0) {
+    throw Error('invoices must not be null or empty')
+  }
+
+  // generate timemillis array
+  let timemillis = new Set()
+
+  // get timemillis from invoice.from and invoice.to
+  for (let invoice of invoices) {
+    timemillis.add(parseToMoment(invoice.from).valueOf())
+    timemillis.add(parseToMoment(invoice.to).valueOf())
+  }
+
+  return timemillis
+}
+
+/**
+ * Return sorted days array meaning expenses periods from guests array.
+ * @param invoices
+ * @return {Array.<Number>}
+ */
+export function expensesPeriodsForGuests (guests) {
+  if (guests === undefined || guests === null || guests.length === 0) {
+    throw Error('guests must not be null or empty')
+  }
+
+  // generate timemillis array
+  let timemillis = new Set()
+
+  // get timemillis from guest.from and (guest.to + 1 day)
+  // Add 1 day to guest.to in order to keep intersection inclusive, exclusive -> [guest.from, guest.to)
+  for (let guest of guests) {
+    timemillis.add(parseToMoment(guest.from).valueOf())
+    // Add 1 day to guest.to
+    timemillis.add(
+      parseToMoment(guest.to)
+        .add(1, 'days')
+        .valueOf()
+    )
+  }
+
+  return timemillis
+}
+
+/**
+ * Return timemillis array sorted delimiting periods for divide expenses between different guests
+ * @param invoices
+ * @return {Array.<Number>}
+ */
+export function expensesPeriods (invoice, guests) {
   if (invoice === undefined || invoice === null) {
     throw Error('invoice must not be null')
   }
@@ -321,16 +397,27 @@ export function daysSortedBetweenInvoiceRange (invoice, guests) {
     throw Error('guests must not be null or empty')
   }
 
-  let timemillis = daysSorted([invoice].concat(guests))
-    .filter((time) => {
-      return isTimeBetweenRangeTime(
-        time,
-        parseToMoment(invoice.from).valueOf(),
-        parseToMoment(invoice.to).valueOf(),
-        true, true)
-    })
+  let timemillis = new Set([
+    ...expensesPeriodsForInvoices([invoice]),
+    ...expensesPeriodsForGuests(guests)])
 
-  return timemillis
+  // sort timemillis from invoice and guests
+  const sortedTimemillis = Array.from(timemillis).sort((a, b) => {
+    return a - b
+  })
+
+  // filter itmemillis
+  let filteredTimeMillis = sortedTimemillis.filter(time => {
+    return isTimeBetweenRangeTime(
+      time,
+      parseToMoment(invoice.from).valueOf(),
+      parseToMoment(invoice.to).valueOf(),
+      true,
+      true
+    )
+  })
+
+  return filteredTimeMillis
 }
 
 /**
@@ -421,9 +508,7 @@ export function sumPricePerDayForAllAndTypes (invoices, days) {
  * @return {boolean}
  */
 export function validateArray (array) {
-  return array !== undefined &&
-    array !== null &&
-    array.length !== 0
+  return array !== undefined && array !== null && array.length !== 0
 }
 
 /**
@@ -432,6 +517,5 @@ export function validateArray (array) {
  * @return {boolean}
  */
 export function validateObject (obj) {
-  return obj !== undefined &&
-    obj !== null
+  return obj !== undefined && obj !== null
 }

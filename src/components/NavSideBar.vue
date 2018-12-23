@@ -1,8 +1,6 @@
 <template>
     <div>
       <b-navbar toggleable="true" type="dark" variant="primary">
-
-
         <b-btn v-b-modal.navSideBarModal class="navbar-toggler"><span class="navbar-toggler-icon"></span></b-btn>
         <b-navbar-brand href="#">Facturas</b-navbar-brand>
 
@@ -17,8 +15,6 @@
           </b-nav>
         </b-modal>
       </b-navbar>
-
-
     </div>
 </template>
 

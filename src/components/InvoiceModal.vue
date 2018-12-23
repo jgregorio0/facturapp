@@ -1,7 +1,6 @@
 <template>
   <div class="info-modal">
-    <b-button class="m-1" sm variant="outline-primary"
-              @click="showModal">
+    <b-button class="m-1" sm variant="outline-primary" @click="showModal">
       <Icon name="info"></Icon>
     </b-button>
     <b-modal ref="invoiceModal" title="Ayuda" hide-footer size="lg">
@@ -11,8 +10,25 @@
           <b-tab title="Añadir factura" active>
             <b-img thumbnail fluid src="/static/img/gif/invoices_new.gif"></b-img>
           </b-tab>
-          <b-tab title="Eliminar factura" >
+          <b-tab title="Eliminar factura">
             <b-img thumbnail fluid src="/static/img/gif/guests_rm.gif"></b-img>
+          </b-tab>
+          <b-tab title="Facturacion">
+            <ol>
+              <li>
+                <span>La fecha 'hasta' de una factura debe coincidir con la fecha 'desde' de la factura siguiente.</span>
+              </li>
+              <li>
+                <span>
+                  Es decir, dadas 2 facturas, la primera desde 2018-05-21 hasta
+                  <strong>2018-07-20</strong> la siguiente desde
+                  <strong>2018-07-20</strong> hasta 2018-09-25.
+                </span>
+              </li>
+              <li>
+                <span>El pago de la factura se contabiliza de forma que la fecha de inicio "desde" es incluyente y la de fin "hasta" excluyente.</span>
+              </li>
+            </ol>
           </b-tab>
         </b-tabs>
       </div>
@@ -22,32 +38,32 @@
 </template>
 
 <script>
-  import Icon from 'vue-awesome/components/Icon'
-  import 'vue-awesome/icons/info'
+import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons/info'
 
-  export default {
-    components: {
-      Icon
+export default {
+  components: {
+    Icon
+  },
+  mounted () {
+    if (this.invoices.length === 0) {
+      this.showModal()
+    } else {
+      this.hideModal()
+    }
+  },
+  computed: {
+    invoices () {
+      return this.$store.getters.invoices
+    }
+  },
+  methods: {
+    showModal () {
+      this.$refs.invoiceModal.show()
     },
-    mounted () {
-      if (this.invoices.length === 0) {
-        this.showModal()
-      } else {
-        this.hideModal()
-      }
-    },
-    computed: {
-      invoices () {
-        return this.$store.getters.invoices
-      }
-    },
-    methods: {
-      showModal () {
-        this.$refs.invoiceModal.show()
-      },
-      hideModal () {
-        this.$refs.invoiceModal.hide()
-      }
+    hideModal () {
+      this.$refs.invoiceModal.hide()
     }
   }
+}
 </script>

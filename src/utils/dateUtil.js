@@ -140,7 +140,7 @@ export function arrayDaysMoment (from, to) {
 
 /**
  * Check if [F1, T1] is between [F2, T2] range:
- * (F1 <= F2 && T1 >= F2) || (F1 >= F2 && F1 <= T2)
+ * (F1 <= F2 && T1 >= F2) || (F1 >= F2 && F1 < T2)
  * @param dateStrFrom1 {String}
  * @param dateStrTo1 {String}
  * @param dateStrFrom2 {String}

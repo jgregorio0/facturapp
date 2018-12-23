@@ -9,6 +9,7 @@
         <h3>Ayuda inquilinos</h3>
         <b-tabs>
           <b-tab title="Añadir inquilino" active>
+            <small>Desde el primer dia de estancia hasta el ultimo dia de estancia</small>
             <b-img thumbnail fluid src="/static/img/gif/guests_new.gif"></b-img>
           </b-tab>
           <b-tab title="Eliminar inquilino" >
