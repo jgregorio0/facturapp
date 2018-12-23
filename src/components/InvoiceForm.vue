@@ -36,6 +36,7 @@
                                 required
                                 placeholder="100.25">
                   </b-form-input>
+                  <small>Separar decimales con coma ",".</small>
                 </b-form-group>
               </b-col>
             </b-row>
