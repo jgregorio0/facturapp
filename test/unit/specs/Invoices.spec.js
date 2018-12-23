@@ -1,51 +1,55 @@
-import {calcPricePerDay, calcCostByInvoices, calcAveragePricePerDay} from '../../../src/utils/expensesUtil'
-import {diffDaysStr} from '../../../src/utils/dateUtil'
+import {
+  calcPricePerDay,
+  calcCostByInvoices,
+  calcAveragePricePerDay
+} from '../../../src/utils/expensesUtil'
+import { diffDaysStr } from '../../../src/utils/dateUtil'
 
 const data = {
-  "invoices": [
+  invoices: [
     {
-      "type": "GAS",
-      "from": "2017-11-21",
-      "to": "2018-01-18",
-      "price": "25.14",
-      "index": 0,
-      "pricePerDay": 0.43344827586206897
+      type: 'GAS',
+      from: '2017-11-21',
+      to: '2018-01-18',
+      price: '25.14',
+      index: 0,
+      pricePerDay: 0.43344827586206897
     },
     {
-      "type": "LUZ",
-      "from": "2017-12-13",
-      "to": "2018-02-04",
-      "price": "148.29",
-      "index": 1,
-      "pricePerDay": 2.7979245283018868
+      type: 'LUZ',
+      from: '2017-12-13',
+      to: '2018-02-04',
+      price: '148.29',
+      index: 1,
+      pricePerDay: 2.7979245283018868
     },
     {
-      "type": "AGUA",
-      "from": "2017-10-20",
-      "to": "2018-01-18",
-      "price": "98.75",
-      "index": 2,
-      "pricePerDay": 1.0972222222222223
+      type: 'AGUA',
+      from: '2017-10-20',
+      to: '2018-01-18',
+      price: '98.75',
+      index: 2,
+      pricePerDay: 1.0972222222222223
     }
   ],
-  "guests": [
+  guests: [
     {
-      "name": "Jesús",
-      "from": "2015-12-26",
-      "to": "2019-01-26",
-      "index": 0
+      name: 'Jesús',
+      from: '2015-12-26',
+      to: '2019-01-26',
+      index: 0
     },
     {
-      "name": "Yan",
-      "from": "2015-01-16",
-      "to": "2020-02-16",
-      "index": 1
+      name: 'Yan',
+      from: '2015-01-16',
+      to: '2020-02-16',
+      index: 1
     },
     {
-      "name": "Johns",
-      "from": "2018-01-18",
-      "to": "2018-07-18",
-      "index": 2
+      name: 'Johns',
+      from: '2018-01-18',
+      to: '2018-07-18',
+      index: 2
     }
   ]
 }
@@ -74,25 +78,27 @@ const results = {
 test('diffDaysStr', () => {
   for (let invoice of data.invoices) {
     // console.log('INVOICE', invoice)
-    expect(diffDaysStr(invoice.from, invoice.to))
-      .toBe(results.diffDaysStr[invoice.index])
+    expect(diffDaysStr(invoice.from, invoice.to)).toBe(
+      results.diffDaysStr[invoice.index]
+    )
   }
 })
 
 test('calcPricePerDay', () => {
   for (let invoice of data.invoices) {
     // console.log('INVOICE', invoice)
-    expect(calcPricePerDay(invoice).toFixed(6))
-      .toBe(results.calcPricePerDay[invoice.index].toFixed(6))
+    expect(calcPricePerDay(invoice).toFixed(6)).toBe(
+      results.calcPricePerDay[invoice.index].toFixed(6)
+    )
   }
 })
 
 test('Total costs for invoices = 941.08', () => {
-  expect(calcCostByInvoices(data.invoices))
-    .toBe(results.calcCost)
+  expect(calcCostByInvoices(data.invoices)).toBe(results.calcCost)
 })
 
 test('Average cost per day', () => {
-  expect(calcAveragePricePerDay(data.invoices).toFixed(6))
-    .toBe(results.calcAveragePricePerDay.toFixed(6))
+  expect(calcAveragePricePerDay(data.invoices).toFixed(6)).toBe(
+    results.calcAveragePricePerDay.toFixed(6)
+  )
 })
