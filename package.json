@@ -12,7 +12,8 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "jest": "jest",
-    "lint": "eslint --ext .js,.vue src test/unit/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
