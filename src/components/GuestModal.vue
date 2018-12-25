@@ -6,7 +6,6 @@
     </b-button>
     <b-modal ref="guestModal" title="Ayuda" hide-footer size="lg">
       <div class="d-block text-center">
-        <h3>Ayuda inquilinos</h3>
         <b-tabs>
           <b-tab title="Añadir inquilino" active>
             <small>Desde el primer dia de estancia hasta el ultimo dia de estancia</small>

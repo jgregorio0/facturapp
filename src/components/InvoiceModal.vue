@@ -5,7 +5,6 @@
     </b-button>
     <b-modal ref="invoiceModal" title="Ayuda" hide-footer size="lg">
       <div class="d-block text-center">
-        <h3>Ayuda facturas</h3>
         <b-tabs>
           <b-tab title="Añadir factura" active>
             <b-img thumbnail fluid src="/static/img/gif/invoices_new.gif"></b-img>

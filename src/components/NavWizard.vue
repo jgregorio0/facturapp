@@ -7,26 +7,37 @@
       v-for="(nav, index) in currents"
       :key="nav.id"
       :to="{ name: nav.name }"
-      :class="{'left-mark': (isFirst(index) && isLeftHide), 'rigth-mark': (isLast(index) && isRightHide)}">{{ nav.text
-      }}
+      :class="{'left-mark': (isFirst(index) && isLeftHide),
+       'rigth-mark': (isLast(index) && isRightHide)}"
+      :title="nav.text">
+       <icon :name="nav.icon" class="mr-2"></icon>
+       <span class="d-none d-sm-inline-block">{{ nav.text }}</span>
     </b-nav-item>
   </transition-group>
 </template>
 
 <script>
   import {findSelectedByName, updateNavigation} from '../utils/navigationUtil'
+  import 'vue-awesome/icons/bed'
+  import '../utils/icons/receipt'
+  import 'vue-awesome/icons/dollar'
+  import 'vue-awesome/icons/line-chart'
+  import Icon from 'vue-awesome/components/Icon'
 
   export default {
+    components: {
+      Icon
+    },
     data () {
       return {
         alls: [
 //          {id: 0, name: 'home', text: 'Inicio'},
-          {id: 0, name: 'guests', text: 'Inquilinos'},
-          {id: 1, name: 'invoices', text: 'Facturas'},
-          {id: 2, name: 'expenses', text: 'Gastos'},
-          {id: 3, name: 'graphs', text: 'Gráficos'}
+          {id: 0, name: 'guests', text: 'Inquilinos', icon: 'bed'},
+          {id: 1, name: 'invoices', text: 'Facturas', icon: 'receipt'},
+          {id: 2, name: 'expenses', text: 'Gastos', icon: 'dollar'},
+          {id: 3, name: 'graphs', text: 'Gráficos', icon: 'line-chart'}
         ],
-        range: 3,
+        range: 4,
         selected: null,
         currents: []
       }

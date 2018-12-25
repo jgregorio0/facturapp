@@ -6,13 +6,14 @@
     </b-button>
     <b-modal ref="graphsModal" title="Ayuda" hide-footer size="lg">
       <div class="d-block text-center">
-        <h3>Ayuda graficos</h3>
-        <ul>
-          <li>Añadir inquilino</li> <!--TODO modal guest Añadir inquilino-->
-          <li>Campos del inquilino</li> <!--TODO modal guest Campos del inquilino-->
-          <li>Eliminar inquilino</li> <!--TODO modal guest Eliminar inquilino-->
-          <li>Siguiente paso: facturas</li> <!--TODO modal guest Siguiente paso: facturas-->
-        </ul>
+        <b-tabs>
+          <b-tab title="Ejes de coordenadas" active>
+            <ol>
+              <li>X: Secuencia de dias donde da comienzo o termina una factura</li>
+              <li>Y: Gasto diario</li>
+            </ol>
+          </b-tab>
+        </b-tabs>
       </div>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Cerrar</b-btn>
     </b-modal>

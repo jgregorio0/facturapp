@@ -5,23 +5,26 @@
     </b-button>
     <b-modal ref="expensesModal" title="Ayuda" hide-footer size="lg">
       <div class="d-block text-center">
-        <h3>Ayuda gastos</h3>
         <b-tabs>
           <b-tab title="Ver detalle de un inquilino" active>
-            <!-- // TODO cambiar nombres -->
-            <b-img thumbnail fluid src="/static/img/gif/invoices_new.gif"></b-img>
+            <b-img thumbnail fluid src="/static/img/gif/expenses_collapse.gif"></b-img>
           </b-tab>
-          <b-tab title="Division de las facturas por dia">
-            <b-img thumbnail fluid src="/static/img/gif/guests_rm.gif"></b-img>
+          <b-tab title="Descargar resumen de gastos">
+            <b-img thumbnail fluid src="/static/img/gif/expenses_download_pdf.gif"></b-img>
           </b-tab>
-          <b-tab title="Periodo de facturacion">
-            <ol>
+          <b-tab title="Coste de las facturas por huesped">
+            <ol class="modal-list">
               <li>
-                <span>Cada huesped paga las facturas que entren en el periodo comprendido entre el primer y ultimo dia de estancia.</span>
+                <span>Cada huesped paga las facturas que entren entre su periodo de estancia, deesde el primer y hasta el ultimo dia de estancia ambos inlcusive.</span>
               </li>
-              <li>
-                <span>El coste de las facturas se contabiliza incluyendo el primer dia de facturacion y excluyendo el ultimo. Este ultimo dia se incluira en la factura siguiente.</span>
+              <li>El importe de la factura se divide por el periodo de facturacion con lo que se obtiene el importe/dia</li>
+              <li>El coste para cada huesped se calcula
+                <ol>
+                  <li>multiplicando el importe/dia X numero de dias de estancia</li>
+                  <li>dividiento entre el total de huespedes entre los que dividir la factura</li>
+                </ol>
               </li>
+              <li>En caso de que un huesped se marche en mitad del periodo de facturacion de una factura solo pagara los dias correspondientes a su estancia</li>
             </ol>
           </b-tab>
         </b-tabs>
@@ -64,3 +67,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ol.modal-list {
+  text-align: left;
+}
+ol.modal-list ol {
+  list-style-type: upper-alpha;
+}
+</style>
