@@ -69,7 +69,13 @@ npm run unit
 npm test
 ```
 ## GIFs
+1. Generar GIF
 ```
 byzanz-record --duration=25 --x=45 --y=140 --width=650 --height=740 salida.gif
 byzanz-record --duration=25 --x=5 --y=170 --width=620 --height=740 salida.gif
 ```
+2. Editar con GIMP
+```
+gimp
+```
+Para guardar `Export as...`, `As Animation` y `Loop forever`
