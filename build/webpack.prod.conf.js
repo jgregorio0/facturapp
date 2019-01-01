@@ -12,9 +12,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-const PrerenderSpaPlugin = require('prerender-spa-plugin')
+// const PrerenderSpaPlugin = require('prerender-spa-plugin')
 // Renders headlessly in a downloaded version of Chromium through puppeteer
-const PuppeteerRenderer = PrerenderSpaPlugin.PuppeteerRenderer
+// const PuppeteerRenderer = PrerenderSpaPlugin.PuppeteerRenderer
 const loadMinified = require('./load-minified')
 
 const env = process.env.NODE_ENV === 'testing'
@@ -119,7 +119,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         }]
     }),
     // prerender SPA
-    new PrerenderSpaPlugin({
+    /* new PrerenderSpaPlugin({
       staticDir: path.resolve(__dirname, '..', 'dist'), // The path to the folder where index.html is.
       routes: ['/guests', '/invoices', '/expenses', '/graphs'], // List of routes to prerender.
       renderer: new PuppeteerRenderer({
@@ -130,7 +130,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         },
         renderAfterDocumentEvent: 'app.rendered'
       })
-    })
+    }) */
   ]
 })
 
