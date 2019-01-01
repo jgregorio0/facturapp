@@ -1,5 +1,5 @@
 <template>
-  <div class="graphs mt-5 mb-5">
+  <div class="graphs mb-5">
     <app-graphs-modal></app-graphs-modal>
     <app-graph-total-cost-per-day></app-graph-total-cost-per-day>
   </div>

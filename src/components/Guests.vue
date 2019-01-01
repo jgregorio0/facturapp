@@ -1,5 +1,5 @@
 <template>
-  <div class="guests mt-5 mb-5">
+  <div class="guests mb-5">
     <app-guest-modal></app-guest-modal>
     <app-guest-form></app-guest-form>
     <app-guest-table></app-guest-table>

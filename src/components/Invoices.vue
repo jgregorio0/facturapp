@@ -1,5 +1,5 @@
 <template>
-  <div class="invoices mt-5 mb-5">
+  <div class="invoices mb-5">
     <app-invoice-modal></app-invoice-modal>
     <app-invoice-form></app-invoice-form>
     <app-invoice-table></app-invoice-table>

@@ -1,5 +1,5 @@
 <template>
-  <div class="expenses mt-5 mb-5">
+  <div class="expenses mb-5">
     <app-expenses-modal></app-expenses-modal>
     <app-expenses-table></app-expenses-table>
   </div>
