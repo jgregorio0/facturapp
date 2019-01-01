@@ -3,6 +3,10 @@
 
     <!--BUTTONS GROUP-->
     <b-button-group vertical class="w-100">
+      <b-btn @click="cookieRemovedCookie" variant="outline-secondary">
+        <Icon name="cog" class="float-left mr-3 mt-1"></Icon>
+        <span class="float-left">Cookies</span>
+      </b-btn>
       <b-btn v-b-modal.import variant="outline-secondary">
         <Icon name="folder-open" class="float-left mr-3 mt-1"></Icon>
         <span class="float-left">Abrir</span>
@@ -29,6 +33,7 @@
   import 'vue-awesome/icons/save'
   import 'vue-awesome/icons/folder-open'
   import 'vue-awesome/icons/trash'
+  import 'vue-awesome/icons/cog'
   import {download} from '../utils/fileUtil'
 
   export default {
@@ -51,6 +56,10 @@
         this.$store.commit('setGuests', [])
         this.$store.commit('setInvoices', [])
         this.$store.commit('setAllInvoices', [])
+      },
+      cookieRemovedCookie () {
+        this.$store.commit('cookiesEnabled', null)
+        this.$store.commit('setShowNavSideBar', false)
       }
     },
     components: {

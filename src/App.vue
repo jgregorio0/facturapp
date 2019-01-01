@@ -2,16 +2,13 @@
   <div id="app">
     <header>
       <app-nav-bar></app-nav-bar>
+      <Cookies></Cookies>
     </header>
 
     <section>
       <app-nav-wizard v-show="this.$route.name != 'home'"></app-nav-wizard>
       <TimeLine></TimeLine>
-      <transition
-        appear
-        appear-active-class="animated zoomIn"
-        mode="out-in"
-        :name="direction">
+      <transition appear appear-active-class="animated zoomIn" mode="out-in" :name="direction">
         <router-view/>
       </transition>
       <app-nav-wizard v-show="this.$route.name != 'home'"></app-nav-wizard>
@@ -22,33 +19,30 @@
 </template>
 
 <script>
-  import NavBar from './components/NavBar.vue'
-  import NavWizard from './components/NavWizard.vue'
-  import TimeLine from './components/TimeLine.vue'
+import NavBar from './components/NavBar.vue'
+import NavWizard from './components/NavWizard.vue'
+import TimeLine from './components/TimeLine.vue'
+import Cookies from './components/Cookies.vue'
 
-  export default {
-    components: {
-      'app-nav-bar': NavBar,
-      'app-nav-wizard': NavWizard,
-      TimeLine
-    },
-    computed: {
-      direction () {
-        return this.$store.getters.direction
-      }
+export default {
+  components: {
+    'app-nav-bar': NavBar,
+    'app-nav-wizard': NavWizard,
+    TimeLine,
+    Cookies
+  },
+  computed: {
+    direction () {
+      return this.$store.getters.direction
     }
   }
+}
 </script>
 
 <style scoped>
-.left-enter {
-}
 
 .left-enter-active {
   animation: fadeInLeft 0.4s ease-out forwards;
-}
-
-.left-leave {
 }
 
 .left-leave-active {
@@ -78,14 +72,8 @@
   }
 }
 
-.right-enter {
-}
-
 .right-enter-active {
   animation: fadeInRight 0.4s ease-out forwards;
-}
-
-.right-leave {
 }
 
 .right-leave-active {

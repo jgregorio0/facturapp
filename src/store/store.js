@@ -21,6 +21,7 @@ export const store = new Vuex.Store({
     })
   ],
   state: {
+    cookiesEnabled: null,
     invoices: [],
     allInvoices: [],
     guests: [],
@@ -30,6 +31,9 @@ export const store = new Vuex.Store({
     filterDateTo: Number.MAX_SAFE_INTEGER
   },
   getters: {
+    cookiesEnabled: state => {
+      return state.cookiesEnabled
+    },
     invoices: state => {
       return state.invoices
     },
@@ -53,6 +57,10 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    cookiesEnabled: (state, isCookiesEnabled) => {
+      console.log('cookiesEnabled :', isCookiesEnabled)
+      state.cookiesEnabled = isCookiesEnabled
+    },
     addInvoice: (state, payload) => {
       payload.index = state.invoices.length
       payload.pricePerDay = calcPricePerDay(payload)
@@ -105,20 +113,10 @@ export const store = new Vuex.Store({
   },
   actions: {
     rmInvoice (context, payload) {
-      console.log(
-        'remove index :',
-        payload.index,
-        context.getters.allInvoices[payload.index]
-      )
-
       context.commit('rmInvoice', {index: payload.index})
       context.dispatch('filterInvoicesByDates')
     },
     filterInvoicesByDates (context) {
-      console.log(
-        'context.getters.allInvoices :',
-        context.getters.allInvoices.length
-      )
       let invoices = []
       for (let invoice of context.getters.allInvoices) {
         if (
