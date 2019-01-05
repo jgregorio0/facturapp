@@ -9,6 +9,7 @@ import Graphs from '../components/Graphs.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -16,28 +17,28 @@ export default new Router({
       redirect: { 'name': 'guests' }
     },
     {
-      path: '/guests',
+      path: '/inquilinos',
       name: 'guests',
       component: Guests
     },
     {
-      path: '/invoices',
+      path: '/facturas',
       name: 'invoices',
       component: Invoices
     },
     {
-      path: '/expenses',
+      path: '/gastos',
       name: 'expenses',
       component: Expenses
     },
     {
-      path: '/graphs',
+      path: '/graficos',
       name: 'graphs',
       component: Graphs
     },
     {
       path: '*',
-      redirect: {name: 'home'}
+      redirect: {name: 'index'}
     }
   ]
 })
